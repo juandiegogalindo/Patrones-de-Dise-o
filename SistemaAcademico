@@ -1,0 +1,59 @@
+package Universidad;
+
+import java.util.ArrayList;
+
+/**
+ *
+ * @author SOFIA
+ */
+import java.util.ArrayList;
+//Utiliza el patron para que solo haya una instancia en el sistema
+public class SistemaAcademico {
+    private Asistencias asistencias;
+    private Calificaciones calificaciones;
+    private Inscripciones inscripciones;
+
+    // Constructor privado para Singleton
+    private static SistemaAcademico instancia;
+
+    private SistemaAcademico() {
+        // Inicialización de clases
+        this.asistencias = Asistencias.getInstancia(); // Singleton
+        this.calificaciones = new Calificaciones();   // No es Singleton
+        this.inscripciones = Inscripciones.getInstancia(); // Singleton
+    }
+
+    // Singleton para `SistemaAcademico`
+    public static synchronized SistemaAcademico getInstancia() {
+        if (instancia == null) {
+            instancia = new SistemaAcademico();
+        }
+        return instancia;
+    }
+
+    // Métodos del sistema
+    public String registrarAsistencia(String descripcion) {
+        return asistencias.registrarAsistencia(descripcion);
+    }
+
+    public String ingresarNota(String corte, double nota) {
+        return calificaciones.ingresarNota(corte, nota);
+    }
+
+    public String consultarCalificacion(String corte) {
+        return calificaciones.consultarCalificacion(corte);
+    }
+
+    public String calcularPromedio() {
+        return calificaciones.calcularPromedio();
+    }
+
+    public String registrarInscripcion(String estudiante, String semestre) {
+        return inscripciones.registrarInscripcion(estudiante, semestre);
+    }
+
+    // Método adicional para obtener las inscripciones
+    public ArrayList<Inscripcion> getInscripciones() {
+        return inscripciones.getInscripciones();
+    }
+}
