@@ -1,0 +1,12 @@
+package Universidad;
+
+/**
+ *
+ * @author SOFIA
+ */
+//Obliga a llamar a estas clases (Las implementen)
+public interface CalificacionesInterface {
+    String ingresarNota(String corte, double nota);
+    String consultarCalificacion(String corte);
+    String calcularPromedio();
+}
