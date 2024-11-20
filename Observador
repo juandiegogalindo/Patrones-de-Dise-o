@@ -1,0 +1,11 @@
+package Universidad;
+
+/**
+ *
+ * @author SOFIA
+ */
+//Para notificar a otros objetos sobre cambios en su estado 
+//Permite que respondan a cambios 
+public interface Observador {
+    void notificar(String mensaje);
+}
