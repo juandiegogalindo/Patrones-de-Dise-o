@@ -1,0 +1,17 @@
+package Universidad;
+
+/**
+ *
+ * @author jdgal
+ */
+//implementa los pasos especificos de la inscripcion normal
+public class InscripcionNormal extends InscripcionTemplate {
+    
+    protected void verificarRequisitos() {
+        System.out.println("Verificando requisitos generales para la inscripción normal.");
+    }
+
+    protected void procesarPago() {
+        System.out.println("Procesando pago normal para la inscripción.");
+    }
+}
