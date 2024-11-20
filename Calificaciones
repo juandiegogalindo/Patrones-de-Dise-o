@@ -1,0 +1,68 @@
+import java.util.HashMap;
+
+/**
+ *
+ * @author SOFIA
+ */
+public class Calificaciones implements CalificacionesInterface {
+    private HashMap<String, Double> calificaciones;
+    private HashMap<String, Double> pesos;
+
+    public Calificaciones() {
+        calificaciones = new HashMap<>();
+        pesos = new HashMap<>();
+        pesos.put("Corte 1", 0.30);
+        pesos.put("Corte 2", 0.30);
+        pesos.put("Corte 3", 0.40);
+    }
+
+    public String ingresarNota(String corte, double nota) {
+        if (!pesos.containsKey(corte)) {
+            return "Corte no encontrado.";
+        }
+        if (nota < 0 || nota > 5) {
+            return "Nota inválida. Ingrese una nota entre 0 y 5.";
+        }
+        calificaciones.put(corte, nota);
+        return "Nota registrada para " + corte + ": " + nota;
+    }
+
+    public String consultarCalificacion(String corte) {
+        if (!pesos.containsKey(corte)) {
+            return "Corte no encontrado.";
+        }
+        if (!calificaciones.containsKey(corte)) {
+            return "No se ha ingresado una nota para " + corte + ".";
+        }
+        return "Calificación en " + corte + ": " + calificaciones.get(corte);
+    }
+
+    public String calcularPromedio() {
+        if (calificaciones.isEmpty()) {
+            return "No hay notas ingresadas para calcular el promedio.";
+        }
+
+        double sumaPonderada = 0.0;
+        double sumaPesos = 0.0;
+
+        for (String corte : calificaciones.keySet()) {
+            double nota = calificaciones.get(corte);
+            double peso = pesos.get(corte);
+
+            sumaPonderada += nota * peso;
+            sumaPesos += peso;
+        }
+
+        double promedio = sumaPonderada / sumaPesos;
+        return String.format("Promedio final (con base en las notas ingresadas):" + promedio);
+    }
+
+    public HashMap<String, Double> getCalificaciones() {
+        return calificaciones;
+    }
+
+    public HashMap<String, Double> getPesos() {
+        return pesos;
+    }
+    
+}
