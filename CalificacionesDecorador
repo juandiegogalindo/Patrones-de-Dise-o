@@ -1,0 +1,36 @@
+package Universidad;
+
+/**
+ *
+ * @author jdgal
+ */
+// permitiendo que el decorador tenga la misma estructura y funcionalidad básica que el objeto que está decorando. 
+public class CalificacionesDecorador implements CalificacionesInterface {
+    //Declara un atributo privado que almacenará una referencia al objeto real que se va a decorar.
+    private CalificacionesInterface calificacionesReal;
+
+    public CalificacionesDecorador(CalificacionesInterface calificacionesReal) {
+        this.calificacionesReal = calificacionesReal;
+    }
+
+
+    public String ingresarNota(String corte, double nota) {
+        // Agregar comportamiento adicional (por ejemplo, log)
+        System.out.println("Registrando nota para " + corte);
+        return calificacionesReal.ingresarNota(corte, nota);
+    }
+
+   
+    public String consultarCalificacion(String corte) {
+        // Agregar comportamiento adicional (por ejemplo, log)
+        System.out.println("Consultando calificacion para " + corte);
+        return calificacionesReal.consultarCalificacion(corte);
+    }
+
+
+    public String calcularPromedio() {
+        // Agregar comportamiento adicional (por ejemplo, log)
+        System.out.println("Calculando promedio final...");
+        return calificacionesReal.calcularPromedio();
+    }
+}
