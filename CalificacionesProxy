@@ -1,0 +1,45 @@
+package Universidad;
+
+/**
+ *
+ * @author SOFIA
+ */
+//Controla el acceso a las calificaciones
+public class CalificacionesProxy implements CalificacionesInterface {
+    private Calificaciones calificacionesReal;
+    private boolean usuarioAutorizado;
+
+    public CalificacionesProxy(boolean usuarioAutorizado) {
+        this.usuarioAutorizado = usuarioAutorizado;
+        this.calificacionesReal = new Calificaciones();
+    }
+    
+   public String ingresarNota(String corte, double nota) {
+        if (usuarioAutorizado) {
+            System.out.println("Acción registrada: Ingreso de nota.");
+            return calificacionesReal.ingresarNota(corte, nota);
+        } else {
+            return "Acceso denegado. No tiene permisos para ingresar notas.";
+        }
+    }
+
+   
+   
+    public String consultarCalificacion(String corte) {
+        if (usuarioAutorizado) {
+            System.out.println("Acción registrada: Consulta de calificación.");
+            return calificacionesReal.consultarCalificacion(corte);
+        } else {
+            return "Acceso denegado. No tiene permisos para consultar calificaciones.";
+        }
+    }
+
+    public String calcularPromedio() {
+        if (usuarioAutorizado) {
+            System.out.println("Acción registrada: Cálculo de promedio.");
+            return calificacionesReal.calcularPromedio();
+        } else {
+            return "Acceso denegado. No tiene permisos para calcular el promedio.";
+        }
+    }
+}
