@@ -1,0 +1,32 @@
+import java.util.ArrayList;
+
+/**
+ *
+ * @author SOFIA
+ */
+public class Asistencias {
+    private ArrayList<String> asistencias;
+
+    // Singleton para `Asistencias`
+    private static Asistencias instancia;
+
+    public Asistencias() {
+        asistencias = new ArrayList<>();
+    }
+//evita problemas en entornos multihilo 
+    public static synchronized Asistencias getInstancia() {
+        if (instancia == null) {
+            instancia = new Asistencias();
+        }
+        return instancia;
+    }
+
+    public String registrarAsistencia(String descripcion) {
+        asistencias.add(descripcion);
+        return "Solicitud de asistencia registrada.";
+    }
+
+    public ArrayList<String> getAsistencias() {
+        return asistencias;
+    }
+}
