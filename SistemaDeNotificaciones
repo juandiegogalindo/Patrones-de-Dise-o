@@ -1,0 +1,13 @@
+package Universidad;
+
+/**
+ *
+ * @author SOFIA
+ */
+  // implementa el metodo definido 
+public class SistemaDeNotificaciones implements Observador {
+//maneja las noificaciones enviadas
+    public void notificar(String mensaje) {
+        System.out.println("Notificación enviada: " + mensaje);
+    }
+}
