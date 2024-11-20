@@ -1,0 +1,47 @@
+package Universidad; 
+
+/**
+ *
+ * @author jdgal
+ */
+//Establece el flujo general de un proceso de inscripcion
+public abstract class InscripcionTemplate {
+
+    // Método plantilla: define el esqueleto del proceso
+    public final String realizarInscripcion(String estudiante, String semestre) {
+        verificarRequisitos();
+        realizarInscripcionGeneral(estudiante, semestre);
+        procesarPago();
+        return generarConfirmacion(estudiante, semestre);
+    }
+
+    // Paso 1: Verificar requisitos, debe ser implementado por la clase concreta
+    protected abstract void verificarRequisitos();
+
+    // Paso 2: Inscripción general, puede ser común a todas las inscripciones
+    private void realizarInscripcionGeneral(String estudiante, String semestre) {
+        System.out.println("Realizando inscripción del estudiante " + estudiante + " para el semestre " + semestre);
+    }
+
+    // Paso 3: Procesar pago, debe ser implementado por la clase concreta
+    protected abstract void procesarPago();
+
+    // Paso 4: Confirmación, común a todas las inscripciones
+    private String generarConfirmacion(String estudiante, String semestre) {
+        return "Inscripción exitosa para el estudiante " + estudiante + " en el semestre " + semestre;
+    }
+
+    boolean inscribirEstudiante(String estudiante, String semestre) {
+        try {
+            // Llama al método plantilla para realizar todo el proceso
+            String confirmacion = realizarInscripcion(estudiante, semestre);
+            // Imprime la confirmación y devuelve true si todo salió bien
+            System.out.println(confirmacion);
+            return true;
+        } catch (Exception e) {
+            // Maneja posibles errores durante el proceso de inscripción
+            System.err.println("Error durante la inscripción: " + e.getMessage());
+            return false;
+        }
+    }
+}
