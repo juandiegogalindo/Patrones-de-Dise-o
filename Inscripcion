@@ -1,0 +1,24 @@
+package Universidad;
+
+/**
+ *
+ * @author SOFIA
+ */
+//Representa el registro de un estudiante
+public class Inscripcion {
+    private String estudiante;
+    private String semestre;
+
+    public Inscripcion(String estudiante, String semestre) {
+        this.estudiante = estudiante;
+        this.semestre = semestre;
+    }
+
+    public String getEstudiante() {
+        return estudiante;
+    }
+
+    public String getSemestre() {
+        return semestre;
+    }
+}
