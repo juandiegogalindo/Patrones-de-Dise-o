@@ -1,0 +1,110 @@
+package Universidad;
+
+/**
+ *
+ * @author SOFIA
+ */
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Creación de instancias para el resto del sistema
+        Asistencias asistencias = new Asistencias();
+        Inscripciones inscripciones = new Inscripciones();
+
+        // Supongamos que el usuario autorizado es verdadero
+        boolean usuarioAutorizado = true; // Cambiar a `false` para probar restricciones
+
+        // Usamos el Proxy para calificaciones
+        CalificacionesInterface calificaciones = new CalificacionesDecorador(new CalificacionesProxy(usuarioAutorizado));
+
+        while (true) {
+         // Menú principal interactivo
+            System.out.println("\n--- Menu Principal ---");
+            System.out.println("1. Registrar asistencia");
+            System.out.println("2. Ingresar calificacion");
+            System.out.println("3. Consultar calificacion");
+            System.out.println("4. Calcular promedio final");
+            System.out.println("5. Registrar inscripcion");
+            System.out.println("6. Ver resumen de inscripciones");
+            System.out.println("7. Salir");
+            System.out.print("Seleccione una opcion: ");
+            
+           String opcion = scanner.nextLine();
+            
+            switch (opcion) {
+                case "1":
+                    // Registrar asistencia
+                    System.out.print("Describa su inconveniente (escriba 'salir' para cancelar): ");
+                    String descripcion = scanner.nextLine();
+                    if (descripcion.equalsIgnoreCase("salir")) {
+                        System.out.println("Operacion de asistencia cancelada.");
+                    } else {
+                        System.out.println(asistencias.registrarAsistencia(descripcion));
+                    }
+                    break;
+
+                case "2":
+                   // Ingresar nota por corte
+                    System.out.print("Ingrese el corte (Corte 1, Corte 2, Corte 3): ");
+                    String corteNota = scanner.nextLine();
+                    System.out.print("Ingrese la nota (0 a 5): ");
+                    double nota = Double.parseDouble(scanner.nextLine());
+                    System.out.println(calificaciones.ingresarNota(corteNota, nota));
+                    break;
+
+                case "3":
+                     // Consultar calificación por corte
+                    System.out.print("Ingrese el corte (Corte 1, Corte 2, Corte 3): ");
+                    String corteConsulta = scanner.nextLine();
+                    System.out.println(calificaciones.consultarCalificacion(corteConsulta));
+                    break;
+
+                case "4":
+                       // Calcular promedio final
+                    System.out.println(calificaciones.calcularPromedio());
+                    break;
+                    
+                case "5":
+                    // Registrar inscripción con plantilla
+                    System.out.print("Ingrese el nombre del estudiante: ");
+                    String estudiante = scanner.nextLine();
+                    System.out.print("Ingrese el semestre (por ejemplo, '2024-1'): ");
+                    String semestre = scanner.nextLine();
+
+                    // Usando el patrón plantilla
+                    InscripcionTemplate inscripcionTemplate = new InscripcionNormal();
+                    System.out.println(inscripcionTemplate.inscribirEstudiante(estudiante, semestre));
+                    break;
+
+                case "6":
+                    // Ver resumen de inscripciones
+                    System.out.println("\n--- Resumen de Inscripciones ---");
+                    for (Inscripcion inscripcion : inscripciones.getInscripciones()) {
+                        System.out.println("Estudiante: " + inscripcion.getEstudiante() + ", Semestre: " + inscripcion.getSemestre());
+                    }
+                    break;
+
+                case "7":
+                    // Salir
+                    System.out.println("Hasta luego");
+                    scanner.close();
+                    return;
+
+                default:
+                    // Opción inválida
+                    System.out.println("Opcion no valida, por favor intente nuevamente.");
+            }
+
+            // Preguntar al usuario si desea realizar otra acción
+            System.out.print("¿Desea realizar otra accion? (s/n): ");
+            String continuar = scanner.nextLine();
+            if (continuar.equalsIgnoreCase("n")) {
+                System.out.println("Gracias por utilizar el sistema");
+                break;
+            }
+        }
+    }
+}
