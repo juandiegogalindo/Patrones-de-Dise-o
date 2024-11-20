@@ -1,0 +1,35 @@
+package Universidad;
+
+import java.util.ArrayList;
+
+/**
+ *
+ * @author SOFIA
+ */
+public class Inscripciones {
+    private ArrayList<Inscripcion> inscripciones;
+
+    // Singleton para `Inscripciones`
+    private static Inscripciones instancia;
+
+    public Inscripciones() {
+        inscripciones = new ArrayList<>();
+    }
+
+    public static synchronized Inscripciones getInstancia() {
+        if (instancia == null) {
+            instancia = new Inscripciones();
+        }
+        return instancia;
+    }
+
+    public String registrarInscripcion(String estudiante, String semestre) {
+        inscripciones.add(new Inscripcion(estudiante, semestre));
+        return "El estudiante " + estudiante + " se ha inscrito en el semestre " + semestre + ".";
+    }
+
+    // Obtener todas las inscripciones
+    public ArrayList<Inscripcion> getInscripciones() {
+        return inscripciones;
+    }
+}
